@@ -1,4 +1,4 @@
-# OmniMan — NJ Hackensack School Bus Routing (RL Competition)
+# Project OmniBus — NJ Hackensack School Bus Routing (RL Competition)
 
 Gymnasium environment for the **School Bus Routing Problem** on a real **Hackensack, NJ** OpenStreetMap network, packaged for **[Codabench](https://www.codabench.org)** hosting.
 
