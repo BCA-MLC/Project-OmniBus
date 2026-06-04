@@ -1,7 +1,7 @@
 """
 Test your submission locally before uploading to Codabench.
 
-Run from the OmniMan repo root:
+Run from the Project-OmniBus repo root:
   python participant_starter/run_submission.py
 """
 import sys

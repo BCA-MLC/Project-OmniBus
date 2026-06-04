@@ -8,11 +8,38 @@ from sb3_contrib.common.maskable.policies import MaskableMultiInputActorCriticPo
 from sb3_contrib.common.wrappers import ActionMasker
 from sbrp_env.env import HackensackSBRPOptimizationEnv
 
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+CACHE = ROOT / "competition_data" / "graph_cache"
+CONFIG = ROOT / "competition_data" / "env_config.json"
+
 def mask_fn(env: HackensackSBRPOptimizationEnv):
     return env.valid_action_mask()
 
 def make_env(render_mode=None):
-    env = HackensackSBRPOptimizationEnv(render_mode=render_mode)
+    if CONFIG.exists():
+        with open(CONFIG, encoding="utf-8") as f:
+            cfg = json.load(f)
+        num_stops = cfg.get("num_stops", 20)
+        num_schools = cfg.get("num_schools", 3)
+        num_buses = cfg.get("num_buses", 4)
+        bus_capacity = cfg.get("bus_capacity", 30)
+    else:
+        num_stops = 20
+        num_schools = 3
+        num_buses = 4
+        bus_capacity = 30
+
+    env = HackensackSBRPOptimizationEnv(
+        render_mode=render_mode,
+        num_stops=num_stops,
+        num_schools=num_schools,
+        num_buses=num_buses,
+        bus_capacity=bus_capacity,
+        cache_dir=CACHE if CACHE.exists() else None,
+    )
     env = ActionMasker(env, mask_fn)
     return env
 
