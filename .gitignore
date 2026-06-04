@@ -14,3 +14,6 @@ sbrp_agent.zip
 .vscode/*
 .vscode/
 .vscode
+
+scripts/
+test_env.py
