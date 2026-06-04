@@ -1,8 +1,10 @@
 # Exclude final evaluation seeds to prevent participant cheating/overfitting
 competition_data/seeds/final_seeds.json
 
-# Exclude generated build assets
+# Exclude generated build assets and organizer-only files
 dist/
+codabench/
+cache/
 
 __pycache__/
 *.pyc
