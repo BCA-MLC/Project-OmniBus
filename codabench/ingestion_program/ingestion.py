@@ -44,7 +44,7 @@ def main():
 
     agent = load_participant_agent()
     results = evaluate_agent(
-        agent(),
+        agent,
         seeds,
         cache_dir=cache_dir,
         num_stops=env_cfg["num_stops"],

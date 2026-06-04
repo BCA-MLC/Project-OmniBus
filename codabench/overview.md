@@ -20,8 +20,8 @@ See the **participant starter kit** and *How to Submit* guide.
 
 ## Resources
 
-- **Starter kit:** `participant_starter_kit.zip` (from your organizer)
-- **Local testing:** full OmniMan repository + `python participant_starter/run_submission.py`
+- **Starter kit:** `participant_starter_kit.zip` (from the GitHub repository--direct link here: https://github.com/BCA-MLC/Project-OmniBus/tree/main/participant_starter_kit)
+- **Local testing:** full project repository + `python participant_starter/run_submission.py`
 
 ## Contact
 

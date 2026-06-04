@@ -4,7 +4,7 @@
 
 ```bash
 conda activate base
-cd OmniMan
+cd Project-OmniBus
 pip install -r requirements.txt
 python scripts/precompute_competition_data.py
 python scripts/build_codabench_bundle.py

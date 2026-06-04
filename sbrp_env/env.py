@@ -87,6 +87,7 @@ class HackensackSBRPOptimizationEnv(gym.Env):
             "num_schools": self.num_schools,
             "num_stops": self.num_stops,
             "num_buses": self.num_buses,
+            "time_matrix": self.rn.time_matrix,
         }
         
     def valid_action_mask(self):

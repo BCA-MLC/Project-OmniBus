@@ -21,16 +21,18 @@ def main():
         input_data = tmp / "input_data"
         output_dir = tmp / "output"
 
-        shutil.copytree(INGESTION / "sbrp_env", program / "sbrp_env", dirs_exist_ok=True)
-        for f in ["ingestion.py", "eval_runner.py"]:
-            src = INGESTION / f if (INGESTION / f).exists() else ROOT / "sbrp_env" / f.replace("ingestion", "eval_runner")
+        # Create dirs
+        program.mkdir(parents=True, exist_ok=True)
+        ingested.mkdir(parents=True, exist_ok=True)
+        input_data.mkdir(parents=True, exist_ok=True)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
         shutil.copy(INGESTION / "ingestion.py", program / "ingestion.py")
         shutil.copytree(ROOT / "sbrp_env", program / "sbrp_env", dirs_exist_ok=True)
         shutil.copy(PARTICIPANT / "agent.py", ingested / "agent.py")
-        shutil.copytree(DATA / "graph_cache", input_data / "graph_cache")
+        shutil.copytree(DATA / "graph_cache", input_data / "graph_cache", dirs_exist_ok=True)
         shutil.copy(DATA / "env_config.json", input_data / "env_config.json")
         shutil.copy(DATA / "seeds" / "dev_seeds.json", input_data / "eval_seeds.json")
-        output_dir.mkdir()
 
         # Patch paths for local run
         code = (program / "ingestion.py").read_text(encoding="utf-8")
