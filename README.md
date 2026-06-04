@@ -1,48 +1,101 @@
-# Project OmniBus - NJ Hackensack School Bus Routing (Reinforcement Learning Competition)
+# NJ Hackensack School Bus Routing Challenge (Project OmniBus)
 
-Gymnasium environment for the **School Bus Routing Problem** on a real **Hackensack, NJ** OpenStreetMap network, packaged for **[Codabench](https://www.codabench.org)** hosting.
+Welcome to the **[Hackensack School Bus Routing Challenge](https://www.codabench.org/competitions/16945/)**! In this competition, you will design a reinforcement learning or rule-based routing agent to navigate school buses through a real-world OpenStreetMap road network of Hackensack, New Jersey.
 
-## Quick links
+Your agent's goal is to decide which stop or school each bus should visit next to pick up waiting students and deliver them to their assigned schools before the morning deadlines—all while minimizing travel times, late arrivals, and ride-time inequality (unfairness).
 
-| Audience | Document / artifact |
-|----------|---------------------|
-| **Participants** | `participant_starter/HOW_TO_SUBMIT.md` and `dist/participant_starter_kit.zip` |
-| **Organizers** | `codabench/HOST_ON_CODABENCH.md` and `dist/hackensack_sbrp_competition.zip` |
+---
 
-## Organizer — publish on Codabench
+## 🚀 Quick Start Guide
+
+### Step 1: Clone the Repository & Install Dependencies
+First, clone this repository to your local machine and install the required Python packages:
 
 ```bash
-conda activate base
+git clone https://github.com/your-username/Project-OmniBus.git
+cd Project-OmniBus
 pip install -r requirements.txt
+```
+
+> [!NOTE]
+> We recommend running these commands inside a virtual environment (like `conda` or `venv`) to prevent package version conflicts.
+
+### Step 2: Precompute the Road Network Cache
+To avoid downloading large map databases from the internet during training and testing, run the precompute script once:
+
+```bash
 python scripts/precompute_competition_data.py
-python scripts/build_codabench_bundle.py
+```
+This downloads the Hackensack drivable road network and precomputes the travel-time matrices, saving them locally under `competition_data/graph_cache/`.
+
+### Step 3: Implement Your Agent
+Open [participant_starter/agent.py](file:///c:/VSCode_Programs/MLCComp/Project-OmniBus/participant_starter/agent.py) in your editor. This is the **only** file you need to modify. 
+
+Complete the `act` method:
+```python
+class Agent:
+    def act(self, obs, action_mask, info):
+        # Your routing logic here!
+        # Return an integer action index representing the next school or stop to visit.
+        ...
 ```
 
-Upload `dist/hackensack_sbrp_competition.zip` to Codabench (**Benchmark → Management → Upload**). See `codabench/HOST_ON_CODABENCH.md` for compute workers and go-live checklist.
+### Step 4: Test Your Agent Locally
+Run the local test harness to evaluate your current agent on 10 public development scenarios:
 
-## Participant — develop and test
-
-1. Get `participant_starter_kit.zip` from your teacher.
-2. Clone this repo and install deps.
-3. Edit `participant_starter/agent.py`.
-4. Run `python participant_starter/run_submission.py` from the repo root.
-5. Zip **only** `agent.py` (+ optional `model.zip`) and upload on Codabench.
-
-## Project layout
-
+```bash
+python participant_starter/run_submission.py
 ```
-sbrp_env/              # Simulator (env, road network, eval runner)
-participant_starter/   # What students edit + HOW_TO_SUBMIT.md
-codabench/             # competition.yaml, ingestion, scoring, docs
-competition_data/      # Cached graph + eval seeds (generated)
-scripts/               # precompute, build bundle
-dist/                  # Built zips (after build script)
-```
+You will see output showing the number of completed episodes and your **Mean Reward** (a higher score closer to 0 is better).
 
-## Training (optional)
+---
+
+## 🤖 Training a Reinforcement Learning Model (Optional)
+
+If you want to train a neural network using reinforcement learning (RL) rather than hand-writing rules, you can use the provided training script:
+
+### Train a Model
+We use **Stable-Baselines3** and `sb3-contrib`'s **MaskablePPO** to learn to route buses directly from experience:
 
 ```bash
 python train.py --train --timesteps 20000
-python train.py  # evaluate saved model
+```
+This trains an RL agent on the correct competition environment settings using the precomputed graph cache and saves the model weights to `sbrp_agent.zip`.
+
+### Evaluate the Trained Model
+To check how your trained model performs visually, run it with the rendering flag:
+
+```bash
+python train.py --render
+```
+
+### Reference Baselines
+To see how a simple nearest-neighbor heuristic performs on this task, run:
+```bash
 python baselines.py
 ```
+Use this score as a benchmark to beat!
+
+---
+
+## 📦 How to Submit
+
+Once your agent is ready, prepare a ZIP file to upload to Codabench:
+
+1. Select **only** the following files from your `participant_starter` folder:
+   - `agent.py` (required)
+   - `model.zip` (optional; if you trained an RL model, rename `sbrp_agent.zip` to `model.zip` and place it here)
+2. Compress them into a ZIP file (e.g., `TeamName.zip`). Ensure these files are at the **root level** of the zip file, not nested inside a folder.
+3. Upload your ZIP file on the **My Submissions** tab of the [Codabench Competition Page](https://www.codabench.org/competitions/16945/).
+
+> [!IMPORTANT]
+> - Do not include `run_submission.py`, `train.py`, or any other repository files in your submission.
+> - Max submission size is **50 MB**.
+> - Do not try to download external data inside `agent.py` during evaluation.
+
+---
+
+## 📚 Documentation
+For more details, check out:
+- [HOW_TO_SUBMIT.md](file:///c:/VSCode_Programs/MLCComp/Project-OmniBus/participant_starter/HOW_TO_SUBMIT.md) inside the `participant_starter` folder.
+- The **Evaluation**, **Data**, and **Terms** tabs on the Codabench competition website.

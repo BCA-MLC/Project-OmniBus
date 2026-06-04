@@ -90,9 +90,8 @@ Right: `TeamHawks.zip` → `agent.py`
 
 ## Step 5 — Upload on Codabench
 
-1. Go to [codabench.org](https://www.codabench.org) and sign in.
-2. Open **NJ School Bus Routing** (your competition).
-3. Click **My Submissions**.
+1. Go to the [Codabench Competition Page](https://www.codabench.org/competitions/16945/) and sign in.
+2. Click **My Submissions**.
 4. Click the **paperclip** / upload button.
 5. Choose your `TeamHawks.zip`.
 6. Wait until status says finished (may take a few minutes).
