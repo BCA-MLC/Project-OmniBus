@@ -10,7 +10,7 @@ Participants do **not** receive raw OSM files in the submission zip. The graph i
 ## What participants download
 
 1. **participant_starter_kit.zip** — `agent.py`, `HOW_TO_SUBMIT.md`, local test script
-2. **OmniMan repository** (optional) — for local development and ML training
+2. **Project-OmniBus repository** (optional) — for local development and ML training
 
 Before local testing, run once:
 
