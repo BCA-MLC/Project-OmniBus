@@ -1,0 +1,82 @@
+version: 2
+title: NJ Hackensack School Bus Routing Challenge
+description: >
+  Design a reinforcement-learning routing agent for Hackensack, NJ school buses.
+  Minimize ride time, lateness, and unfair routes on a real OpenStreetMap road network.
+image: logo.png
+terms: terms_and_conditions.md
+registration_auto_approve: true
+docker_image: codalab/codalab-legacy:py37
+make_programs_available: true
+make_input_data_available: false
+auto_run_submissions: true
+contact_email: organizer@example.com
+
+pages:
+  - title: Overview
+    file: overview.md
+  - title: Evaluation
+    file: evaluation.md
+  - title: Data
+    file: data.md
+  - title: Terms
+    file: terms_and_conditions.md
+
+phases:
+  - index: 0
+    name: Development
+    description: Practice phase with the same rules as finals. Scores are visible on the leaderboard.
+    start: 2026-03-01
+    end: 2027-06-01
+    execution_time_limit: 1200
+    max_submissions_per_day: 5
+    tasks:
+      - 0
+  - index: 1
+    name: Final
+    description: Final ranking uses hidden morning scenarios. Same submission format as Development.
+    start: 2026-04-01
+    end: 2027-06-01
+    execution_time_limit: 1800
+    max_submissions_per_day: 2
+    tasks:
+      - 1
+
+tasks:
+  - index: 0
+    name: Dev Routing Task
+    description: Evaluate agent on 10 public development seeds (hidden during scoring).
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+    input_data: phases/dev/input_data.zip
+    reference_data: reference_data.zip
+  - index: 1
+    name: Final Routing Task
+    description: Evaluate agent on 30 held-out seeds.
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+    input_data: phases/final/input_data.zip
+    reference_data: reference_data.zip
+
+solutions:
+  - index: 0
+    path: example_solution.zip
+    tasks:
+      - 0
+
+leaderboards:
+  - title: Results
+    key: main
+    columns:
+      - title: Score
+        key: score
+        index: 0
+        sorting: desc
+      - title: Mean reward
+        key: mean_reward
+        index: 1
+        sorting: desc
+      - title: Episodes
+        key: episodes
+        index: 2
+        sorting: desc

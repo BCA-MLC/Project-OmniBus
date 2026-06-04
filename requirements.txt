@@ -1,0 +1,8 @@
+gymnasium
+osmnx
+networkx
+stable-baselines3
+sb3-contrib
+numpy
+pandas
+matplotlib

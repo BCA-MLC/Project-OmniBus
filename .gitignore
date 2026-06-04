@@ -1,0 +1,9 @@
+dist/_staging/
+__pycache__/
+*.pyc
+.pytest_cache/
+sbrp_agent.zip
+*.egg-info/
+.vscode/*
+.vscode/
+.vscode
