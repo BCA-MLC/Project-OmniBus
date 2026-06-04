@@ -1,0 +1,7 @@
+{
+  "num_stops": 20,
+  "num_schools": 3,
+  "num_buses": 4,
+  "bus_capacity": 30,
+  "poi_seed": 42
+}
