@@ -33,7 +33,7 @@ If you want access to the simulator, training scripts, baselines, and developmen
 First, clone this repository to your local machine and install the required Python packages:
 
 ```bash
-git clone https://github.com/your-username/Project-OmniBus.git
+git clone https://github.com/BCA-MLC/Project-OmniBus.git
 cd Project-OmniBus
 pip install -r requirements.txt
 ```
