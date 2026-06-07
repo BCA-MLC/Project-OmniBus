@@ -4,7 +4,7 @@ Welcome to the Hackensack School Bus Routing Challenge! In this competition, you
 
 Your agent's goal is to decide which stop or school each bus should visit next to pick up waiting students and deliver them to their assigned schools before the morning deadlines—all while minimizing travel times, late arrivals, and ride-time inequality (unfairness).
 
-## 📦 Getting the Competition Files
+## Getting the Competition Files
 
 There are two ways to get started:
 
@@ -26,7 +26,7 @@ The starter kit contains:
 
 If you want access to the simulator, training scripts, baselines, and development tools, clone the full repository and follow the setup instructions below.
 
-🚀 Quick Start Guide
+Quick Start Guide
 
 ### Step 1: Clone the Repository & Install Dependencies
 
@@ -76,7 +76,7 @@ python participant_starter/run_submission.py
 
 You will see output showing the number of completed episodes and your Mean Reward (a higher score closer to 0 is better).
 
-## 🤖 Training a Reinforcement Learning Model (Optional)
+## Training a Reinforcement Learning Model (Optional)
 
 If you want to train a neural network using reinforcement learning (RL) rather than hand-writing rules, you can use the provided training script:
 
@@ -108,7 +108,7 @@ python baselines.py
 
 Use this score as a benchmark to beat!
 
-## 📦 How to Submit
+## How to Submit
 
 Once your agent is ready, prepare a ZIP file to upload to Codabench:
 
@@ -125,7 +125,7 @@ Once your agent is ready, prepare a ZIP file to upload to Codabench:
 > * Max submission size is 50 MB.
 > * Do not try to download external data inside `agent.py` during evaluation.
 
-## 📚 Documentation
+## Documentation
 
 For more details, check out:
 
