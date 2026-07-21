@@ -74,20 +74,43 @@ class HackensackSBRPOptimizationEnv(gym.Env):
         
         return self._get_obs(), self._get_info()
         
+    # ------------------------------------------------------------------
+    # Security: always give the agent read-only *copies* of internal
+    # arrays.  This prevents any in-place mutation (live_T[...] = 0,
+    # arr.fill(0), arr[:] = x, etc.) from corrupting our internal state.
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _frozen(arr: np.ndarray) -> np.ndarray:
+        """Return a read-only copy of *arr*.
+
+        The copy ensures the agent holds a different object than our
+        internal array; the read-only flag means any attempted in-place
+        write raises ``ValueError`` immediately rather than silently
+        corrupting shared state.
+        """
+        out = np.array(arr, copy=True)  # always a fresh allocation
+        out.flags.writeable = False
+        return out
+
     def _get_obs(self):
         return {
-            "bus_states": self.bus_states,
-            "stop_states": self.stop_states,
+            # Copies + read-only: the agent cannot mutate internal state
+            # through these references.
+            "bus_states": self._frozen(self.bus_states),
+            "stop_states": self._frozen(self.stop_states),
             "global_time": np.array([self.global_time], dtype=np.float32),
-            "current_bus": np.array([self.current_bus_idx], dtype=np.float32)
+            "current_bus": np.array([self.current_bus_idx], dtype=np.float32),
         }
-        
+
     def _get_info(self):
         return {
             "num_schools": self.num_schools,
             "num_stops": self.num_stops,
             "num_buses": self.num_buses,
-            "time_matrix": self.rn.time_matrix,
+            # Read-only copy — the live self.rn.time_matrix is NEVER
+            # handed to the agent.  Reward is always computed from
+            # self.rn.get_time() (see step()), not from this copy.
+            "time_matrix": self._frozen(self.rn.time_matrix),
         }
         
     def valid_action_mask(self):

@@ -82,6 +82,11 @@ class RoadNetwork:
             for j, dest in enumerate(self.poi_nodes):
                 self.time_matrix[i, j] = lengths.get(dest, 1e6)
         self.base_time_matrix = self.time_matrix.copy()
+        # base_time_matrix is the canonical ground truth; mark it read-only
+        # so nothing can corrupt it in-place.  trigger_disruption() and
+        # reset_disruptions() always replace self.time_matrix via copy(),
+        # never mutate base_time_matrix directly.
+        self.base_time_matrix.flags.writeable = False
 
     def save_cache(self, cache_dir: str | Path):
         cache_dir = Path(cache_dir)
@@ -111,6 +116,7 @@ class RoadNetwork:
         self.poi_nodes = config["poi_nodes"]
         self.time_matrix = np.load(cache_dir / "time_matrix.npy")
         self.base_time_matrix = np.load(cache_dir / "base_time_matrix.npy")
+        self.base_time_matrix.flags.writeable = False  # protect canonical copy
 
     def get_time(self, origin_idx, dest_idx):
         return self.time_matrix[origin_idx, dest_idx]
